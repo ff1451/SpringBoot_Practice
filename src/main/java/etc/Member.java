@@ -6,6 +6,14 @@ public class Member {
     private String email;
     private String password;
 
+
+    public Member(int memberId, String name, String email, String password) {
+        this.memberId = memberId;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     public int getMemberId() {
         return memberId;
     }

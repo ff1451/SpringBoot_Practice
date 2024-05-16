@@ -4,6 +4,11 @@ public class Board {
     private int boardId;
     private String boardName;
 
+    public Board(int boardId, String boardName) {
+        this.boardId = boardId;
+        this.boardName = boardName;
+    }
+
     public int getBoardId() {
         return boardId;
     }

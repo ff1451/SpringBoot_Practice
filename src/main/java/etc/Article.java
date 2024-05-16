@@ -1,18 +1,20 @@
 package etc;
 
+import java.time.LocalDateTime;
+
 public class Article {
     private int articleId;
     private String articleTitle;
     private String articleContent;
     private String authorId;
     private String boardId;
-    private String writeDate;
-    private String updatedDate;
+    private LocalDateTime writeDate;
+    private LocalDateTime updatedDate;
 
     public Article() {
     }
 
-    public Article(int articleId, String articleTitle, String articleContent, String authorId, String boardId,String writeDate) {
+    public Article(int articleId, String articleTitle, String articleContent, String authorId, String boardId,LocalDateTime writeDate) {
         this.articleId = articleId;
         this.articleTitle = articleTitle;
         this.articleContent = articleContent;
@@ -57,16 +59,16 @@ public class Article {
     public void setBoardId(String boardId) {
         this.boardId = boardId;
     }
-    public String getWriteDate() {
+    public LocalDateTime getWriteDate() {
         return writeDate;
     }
-    public void setWriteDate(String writeDate) {
+    public void setWriteDate(LocalDateTime writeDate) {
         this.writeDate = writeDate;
     }
-    public String getUpdatedDate() {
+    public LocalDateTime getUpdatedDate() {
         return updatedDate;
     }
-    public void setUpdatedDate(String updatedDate) {
+    public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
     }
 }
