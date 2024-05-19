@@ -13,7 +13,7 @@ import java.util.Map;
 @Repository
 public class MemoryArticleRepository implements ArticleRepository {
     private static final Map<Long,Article> articleStore = new HashMap<>();
-    private static long currentArticleId = 0L;
+    private static long currentArticleId = 0;
 
     @Override
     public Article createArticle(Article article) {
