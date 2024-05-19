@@ -39,7 +39,7 @@ public class MemoryArticleRepository implements ArticleRepository {
     }
 
     @Override
-    public void deleteArticleById(Long id) {
+    public void deleteArticle(Long id) {
         articleStore.remove(id);
     }
 }
