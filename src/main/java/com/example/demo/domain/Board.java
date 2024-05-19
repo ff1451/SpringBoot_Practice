@@ -4,9 +4,9 @@ public class Board {
     private Long boardId;
     private String boardName;
 
-    public Board(String boardName) {
+    /*public Board(String boardName) {
         this.boardName = boardName;
-    }
+    }*/
 
     public Long getBoardId() {
         return boardId;
