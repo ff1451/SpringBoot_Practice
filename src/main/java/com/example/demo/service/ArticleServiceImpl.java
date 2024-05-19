@@ -3,11 +3,12 @@ package com.example.demo.service;
 import com.example.demo.domain.Article;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemoryArticleRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ArticleServiceImpl implements ArticleService {
-
     private final ArticleRepository articleRepository = new MemoryArticleRepository();
 
     @Override

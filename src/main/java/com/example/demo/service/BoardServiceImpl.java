@@ -3,11 +3,12 @@ package com.example.demo.service;
 import com.example.demo.domain.Board;
 import com.example.demo.repository.BoardRepository;
 import com.example.demo.repository.MemoryBoardRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BoardServiceImpl implements BoardService {
-
     private final BoardRepository boardRepository = new MemoryBoardRepository();
 
     @Override
