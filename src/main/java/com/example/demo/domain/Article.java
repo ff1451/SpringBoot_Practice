@@ -6,15 +6,15 @@ public class Article {
     private Long articleId;
     private String articleTitle;
     private String articleContent;
-    private String authorId;
-    private String boardId;
+    private Long authorId;
+    private Long boardId;
     private LocalDateTime writeDate;
     private LocalDateTime updatedDate;
 
     public Article() {
     }
 
-    public Article(String articleTitle, String articleContent, String authorId, String boardId) {
+    public Article(String articleTitle, String articleContent, Long authorId, Long boardId) {
         this.articleTitle = articleTitle;
         this.articleContent = articleContent;
         this.authorId = authorId;
@@ -47,16 +47,16 @@ public class Article {
         this.articleContent = articleContent;
     }
 
-    public String getAuthorId() {
+    public Long getAuthorId() {
         return authorId;
     }
-    public void setAuthorId(String authorId) {
+    public void setAuthorId(Long authorId) {
         this.authorId = authorId;
     }
-    public String getBoardId() {
+    public Long getBoardId() {
         return boardId;
     }
-    public void setBoardId(String boardId) {
+    public void setBoardId(Long boardId) {
         this.boardId = boardId;
     }
     public LocalDateTime getWriteDate() {
