@@ -1,24 +1,23 @@
-package etc;
+package com.example.demo.domain;
 
 public class Member {
-    private int memberId;
+    private Long memberId;
     private String name;
     private String email;
     private String password;
 
 
-    public Member(int memberId, String name, String email, String password) {
-        this.memberId = memberId;
+    public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public int getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(int memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
 

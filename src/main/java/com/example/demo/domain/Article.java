@@ -1,9 +1,9 @@
-package etc;
+package com.example.demo.domain;
 
 import java.time.LocalDateTime;
 
 public class Article {
-    private int articleId;
+    private Long articleId;
     private String articleTitle;
     private String articleContent;
     private String authorId;
@@ -14,20 +14,20 @@ public class Article {
     public Article() {
     }
 
-    public Article(int articleId, String articleTitle, String articleContent, String authorId, String boardId,LocalDateTime writeDate) {
-        this.articleId = articleId;
+    public Article(String articleTitle, String articleContent, String authorId, String boardId) {
         this.articleTitle = articleTitle;
         this.articleContent = articleContent;
         this.authorId = authorId;
         this.boardId = boardId;
-        this.writeDate = writeDate;
+        this.writeDate = LocalDateTime.now();
+        this.updatedDate = LocalDateTime.now();
     }
 
-    public int getarticleId() {
+    public Long getArticleId() {
         return articleId;
     }
 
-    public void setId(int articleId) {
+    public void setId(Long articleId) {
         this.articleId = articleId;
     }
 
