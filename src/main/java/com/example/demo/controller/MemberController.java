@@ -3,7 +3,6 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Member;
 import com.example.demo.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,11 @@ import java.util.List;
 @RequestMapping("/members")
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
+
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     @PostMapping
     public ResponseEntity<Member> createMember(@RequestBody Member member) {

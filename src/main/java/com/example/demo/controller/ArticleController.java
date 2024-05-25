@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.demo.service.ArticleService;
@@ -9,17 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 import com.example.demo.domain.Article;
 
 
 @Controller
 public class ArticleController {
 
-    @Autowired
-    private ArticleService articleService;
+    private final ArticleService articleService;
+
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     @GetMapping("/articles/{id}")
     public ResponseEntity<Article> getArticleById(@PathVariable Long id) {

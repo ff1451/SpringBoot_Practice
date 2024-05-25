@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Board;
 import com.example.demo.service.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,11 @@ import java.util.List;
 @RequestMapping("/boards")
 public class BoardController {
 
-    @Autowired
-    private BoardService boardService;
+    private final BoardService boardService;
+
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @PostMapping
     public ResponseEntity<Board> createBoard(@RequestBody Board board) {
