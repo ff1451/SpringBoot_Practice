@@ -29,14 +29,14 @@ public class ArticleDAOImpl implements ArticleDAO{
 
 
     @Override
-    public Article save(Article article) {
+    public Article createArticle(Article article) {
         String sql = "INSERT INTO article (title, content, author_id, board_id, created_date) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, article.getArticleTitle(),article.getArticleContent(),article.getAuthorId(),article.getBoardId(),article.getWriteDate());
         return article;
     }
 
     @Override
-    public Optional<Article> findById(Long id) {
+    public Optional<Article> getArticleById(Long id) {
         String sql = "SELECT * FROM article WHERE id = ?";
         try {
             Article article = jdbcTemplate.queryForObject(sql, articleRowMapper, id);
@@ -47,19 +47,19 @@ public class ArticleDAOImpl implements ArticleDAO{
     }
 
     @Override
-    public List<Article> findAll() {
+    public List<Article> getAllArticles() {
         String sql = "SELECT * FROM article";
         return jdbcTemplate.query(sql, articleRowMapper);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteArticle(Long id) {
         String sql = "DELETE FROM article WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 
     @Override
-    public Article update(Long id, Article article) {
+    public Article updateArticle(Long id, Article article) {
         String sql = "UPDATE article SET title = ?, content = ? WHERE id = ?";
         jdbcTemplate.update(sql, article.getArticleTitle(), article.getArticleContent(), article.getArticleId());
         return null;
