@@ -91,5 +91,18 @@ public class ArticleServiceImpl implements ArticleService {
     public void deleteArticle(Long id) {
         articleDAO.deleteArticle(id);
     }
+
+    @Override
+    public List<ArticleResponse> getArticlesByBoardId(Long boardId) {
+        List<Article> articles = articleDAO.getArticlesByBoardId(boardId);
+        return articles.stream()
+                .map(article -> {
+                    Member member = memberDAO.getMemberById(article.getAuthorId())
+                            .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
+                    Board board = boardDAO.getBoardById(article.getBoardId())
+                            .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
+                    return ArticleResponse.of(article, member, board);
+                }).toList();
+    }
 }
 

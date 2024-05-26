@@ -59,6 +59,12 @@ public class ArticleDAOImpl implements ArticleDAO{
     }
 
     @Override
+    public List<Article> getArticlesByBoardId(Long boardId) {
+        String sql = "SELECT * FROM article WHERE board_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{boardId}, articleRowMapper);
+    }
+
+    @Override
     public Article updateArticle(Long id, Article article) {
         String sql = "UPDATE article SET title = ?, content = ? WHERE id = ?";
         jdbcTemplate.update(sql, article.getArticleTitle(), article.getArticleContent(), article.getArticleId());

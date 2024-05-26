@@ -11,4 +11,5 @@ public interface ArticleDAO {
     List<Article> getAllArticles();
     Article updateArticle(Long id, Article article);
     void deleteArticle(Long id);
+    List<Article> getArticlesByBoardId(Long boardId);
 }

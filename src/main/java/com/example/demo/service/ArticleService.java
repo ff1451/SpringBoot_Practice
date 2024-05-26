@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.Article;
 import com.example.demo.dto.ArticleRequest;
 import com.example.demo.dto.ArticleResponse;
 
@@ -12,4 +11,6 @@ public interface ArticleService {
     List<ArticleResponse> getAllArticles();
     ArticleResponse updateArticle(Long id, ArticleRequest articleRequest);
     void deleteArticle(Long id);
+
+    List<ArticleResponse> getArticlesByBoardId(Long boardId);
 }

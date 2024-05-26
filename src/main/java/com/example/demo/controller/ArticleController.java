@@ -69,4 +69,10 @@ public class ArticleController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleResponse>> getArticlesByBoardId(@RequestParam(name="boardId") Long boardId) {
+        List<ArticleResponse> articles = articleService.getArticlesByBoardId(boardId);
+        return new ResponseEntity<>(articles, HttpStatus.OK);
+    }
 }
