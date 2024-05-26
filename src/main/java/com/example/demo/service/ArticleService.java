@@ -1,15 +1,15 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Article;
+import com.example.demo.dto.ArticleRequest;
+import com.example.demo.dto.ArticleResponse;
 
 import java.util.List;
 
 public interface ArticleService {
-    Article createArticle(Article article);
-    Article getArticleById(Long id);
-    List<Article> getAllArticles();
-    Article updateArticle(Article article);
+    ArticleResponse createArticle(ArticleRequest articleRequest);
+    ArticleResponse getArticleById(Long id);
+    List<ArticleResponse> getAllArticles();
+    ArticleResponse updateArticle(Long id, ArticleRequest articleRequest);
     void deleteArticle(Long id);
-    String getBoardName(Long boardId);
-    String getAuthorName(Long authorId);
 }

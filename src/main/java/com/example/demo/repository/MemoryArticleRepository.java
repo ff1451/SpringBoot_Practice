@@ -33,8 +33,9 @@ public class MemoryArticleRepository implements ArticleRepository {
     }
 
     @Override
-    public Article updateArticle(Article article) {
-        articleStore.put(article.getArticleId(),article);
+    public Article updateArticle(Long id, Article article) {
+        articleStore.put(id,article);
+        article.setId(id);
         return article;
     }
 

@@ -11,17 +11,17 @@ public class Article {
     private LocalDateTime writeDate;
     private LocalDateTime updatedDate;
 
-    public Article() {
-    }
-
-    public Article(String articleTitle, String articleContent, Long authorId, Long boardId) {
+    public Article(String articleTitle, String articleContent, Long authorId, Long boardId, LocalDateTime writeDate) {
         this.articleTitle = articleTitle;
         this.articleContent = articleContent;
         this.authorId = authorId;
         this.boardId = boardId;
-        this.writeDate = LocalDateTime.now();
-        this.updatedDate = LocalDateTime.now();
+        this.writeDate = writeDate;
     }
+
+    public Article(long id, String title, String content, long authorId, long boardId, LocalDateTime createdDate) {
+    }
+
 
     public Long getArticleId() {
         return articleId;
