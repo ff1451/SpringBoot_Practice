@@ -1,5 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.ArticleDAO;
+import com.example.demo.dao.BoardDAO;
+import com.example.demo.dao.MemberDAO;
 import com.example.demo.domain.Article;
 import com.example.demo.domain.Board;
 import com.example.demo.domain.Member;
@@ -14,9 +17,15 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-    private final ArticleRepository articleRepository = new MemoryArticleRepository();
-    private final BoardRepository boardRepository = new MemoryBoardRepository();
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final ArticleDAO articleDAO;
+    private final BoardDAO boardDAO;
+    private final MemberDAO memberDAO;
+
+    public ArticleServiceImpl(ArticleDAO articleDAO, BoardDAO boardDAO, MemberDAO memberDAO) {
+        this.articleDAO = articleDAO;
+        this.boardDAO = boardDAO;
+        this.memberDAO = memberDAO;
+    }
 
     @Override
     public ArticleResponse createArticle(ArticleRequest request) {
@@ -27,33 +36,33 @@ public class ArticleServiceImpl implements ArticleService {
                 request.boardId(),
                 LocalDateTime.now()
         );
-        Article createdArticle = articleRepository.createArticle(article);
-        Member member = memberRepository.findById(createdArticle.getAuthorId())
+        articleDAO.createArticle(article);
+        Member member = memberDAO.getMemberById(article.getArticleId())
                 .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
-        Board board = boardRepository.findBoardById(createdArticle.getBoardId())
+        Board board = boardDAO.getBoardById(article.getBoardId())
                 .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
-        return ArticleResponse.of(createdArticle, member, board);
+        return ArticleResponse.of(article, member, board);
     }
 
     @Override
     public ArticleResponse getArticleById(Long id) {
-        Article article = articleRepository.findArticleById(id)
+        Article article = articleDAO.getArticleById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시물 id 조회 실패: " + id));
-        Member member = memberRepository.findById(article.getAuthorId())
+        Member member = memberDAO.getMemberById(article.getAuthorId())
                 .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
-        Board board = boardRepository.findBoardById(article.getBoardId())
+        Board board = boardDAO.getBoardById(article.getBoardId())
                 .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
         return ArticleResponse.of(article, member, board);
     }
 
     @Override
     public List<ArticleResponse> getAllArticles() {
-        List<Article> articles = articleRepository.findAllArticles();
+        List<Article> articles = articleDAO.getAllArticles();
         return articles.stream()
                 .map(article -> {
-                    Member member = memberRepository.findById(article.getAuthorId())
+                    Member member = memberDAO.getMemberById(article.getAuthorId())
                             .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
-                    Board board = boardRepository.findBoardById(article.getBoardId())
+                    Board board = boardDAO.getBoardById(article.getBoardId())
                             .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
                     return ArticleResponse.of(article, member, board);
                 }).toList();
@@ -61,7 +70,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleResponse updateArticle(Long id, ArticleRequest request) {
-        Article article = articleRepository.findArticleById(id)
+        Article article = articleDAO.getArticleById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글 조회 실패"));
 
         article.setArticleTitle(request.articleTitle());
@@ -70,17 +79,17 @@ public class ArticleServiceImpl implements ArticleService {
         article.setBoardId(request.boardId());
         article.setUpdatedDate(LocalDateTime.now());
 
-        Article updatedArticle = articleRepository.updateArticle(id, article);
-        Member member = memberRepository.findById(updatedArticle.getAuthorId())
+        Article updatedArticle = articleDAO.updateArticle(id, article);
+        Member member = memberDAO.getMemberById(updatedArticle.getAuthorId())
                 .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
-        Board board = boardRepository.findBoardById(updatedArticle.getBoardId())
+        Board board = boardDAO.getBoardById(updatedArticle.getBoardId())
                 .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
         return ArticleResponse.of(updatedArticle, member, board);
     }
 
     @Override
     public void deleteArticle(Long id) {
-        articleRepository.deleteArticle(id);
+        articleDAO.deleteArticle(id);
     }
 }
 
