@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ArticleDAO {
-    Article createArticle(Article article);
-    Optional<Article> getArticleById(Long id);
-    List<Article> getAllArticles();
-    Article updateArticle(Long id, Article article);
-    void deleteArticle(Long id);
-    List<Article> getArticlesByBoardId(Long boardId);
+    Article create(Article article);
+    Optional<Article> getById(Long id);
+    List<Article> getAll();
+    Article update(Long id, Article article);
+    void delete(Long id);
+    List<Article> getByBoardId(Long id);
 }

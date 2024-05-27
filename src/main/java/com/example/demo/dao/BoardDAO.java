@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardDAO {
-    Board createBoard(Board board);
-    Optional<Board> getBoardById(Long id);
-    List<Board> getAllBoards();
-    Board updateBoard(Board board);
-    void deleteBoard(Long id);
+    List<Board> getAll();
+    Optional<Board> getById(Long id);
 }

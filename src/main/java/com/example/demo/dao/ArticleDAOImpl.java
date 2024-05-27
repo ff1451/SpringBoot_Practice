@@ -6,11 +6,15 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
 public class ArticleDAOImpl implements ArticleDAO{
+
+    private static final Map<Long, Article> articles = new HashMap<>();
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -29,14 +33,14 @@ public class ArticleDAOImpl implements ArticleDAO{
 
 
     @Override
-    public Article createArticle(Article article) {
-        String sql = "INSERT INTO article (title, content, author_id, board_id, created_date) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, article.getArticleTitle(),article.getArticleContent(),article.getAuthorId(),article.getBoardId(),article.getWriteDate());
+    public Article create(Article article) {
+        String sql = "INSERT INTO article (title, content, author_id, board_id) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, article.getTitle(),article.getContent(),article.getWriterId(),article.getBoardId());
         return article;
     }
 
     @Override
-    public Optional<Article> getArticleById(Long id) {
+    public Optional<Article> getById(Long id) {
         String sql = "SELECT * FROM article WHERE id = ?";
         try {
             Article article = jdbcTemplate.queryForObject(sql, articleRowMapper, id);
@@ -47,27 +51,27 @@ public class ArticleDAOImpl implements ArticleDAO{
     }
 
     @Override
-    public List<Article> getAllArticles() {
+    public List<Article> getAll() {
         String sql = "SELECT * FROM article";
         return jdbcTemplate.query(sql, articleRowMapper);
     }
 
     @Override
-    public void deleteArticle(Long id) {
+    public void delete(Long id) {
         String sql = "DELETE FROM article WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 
     @Override
-    public List<Article> getArticlesByBoardId(Long boardId) {
+    public List<Article> getByBoardId(Long id) {
         String sql = "SELECT * FROM article WHERE board_id = ?";
-        return jdbcTemplate.query(sql, new Object[]{boardId}, articleRowMapper);
+        return jdbcTemplate.query(sql, articleRowMapper, id);
     }
 
     @Override
-    public Article updateArticle(Long id, Article article) {
-        String sql = "UPDATE article SET title = ?, content = ? WHERE id = ?";
-        jdbcTemplate.update(sql, article.getArticleTitle(), article.getArticleContent(), article.getArticleId());
-        return null;
+    public Article update(Long id, Article article) {
+        String sql = "UPDATE article SET board_id =?, title = ?, content = ? WHERE id = ?";
+        jdbcTemplate.update(sql, article.getBoardId(), article.getTitle(), article.getContent(), article.getId());
+        return article;
     }
 }
