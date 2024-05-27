@@ -3,55 +3,67 @@ package com.example.demo.domain;
 import java.time.LocalDateTime;
 
 public class Article {
-    private Long articleId;
-    private String articleTitle;
-    private String articleContent;
-    private Long authorId;
+    private Long id;
+    private String title;
+    private String content;
+    private Long writerId;
     private Long boardId;
-    private LocalDateTime writeDate;
-    private LocalDateTime updatedDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 
-    public Article(String articleTitle, String articleContent, Long authorId, Long boardId, LocalDateTime writeDate) {
-        this.articleTitle = articleTitle;
-        this.articleContent = articleContent;
-        this.authorId = authorId;
+    public Article(String title, String content, Long writerId, Long boardId, LocalDateTime createdDate) {
+        this.title = title;
+        this.content = content;
+        this.writerId = writerId;
         this.boardId = boardId;
-        this.writeDate = writeDate;
+        this.createdDate = createdDate;
     }
 
-    public Article(long id, String title, String content, long authorId, long boardId, LocalDateTime createdDate) {
+    public Article(long id, String title, String content, long writerId, long boardId, LocalDateTime createdDate) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.writerId = writerId;
+        this.boardId = boardId;
+        this.createdDate = createdDate;
     }
 
+    public void update(Long boardId, String articleTitle, String content) {
+        this.boardId = boardId;
+        this.title = articleTitle;
+        this.content = content;
+        this.modifiedDate = LocalDateTime.now();
+    }
 
-    public Long getArticleId() {
-        return articleId;
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long articleId) {
-        this.articleId = articleId;
+        this.id = articleId;
     }
 
-    public String getArticleTitle() {
-        return articleTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getArticleContent() {
-        return articleContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setArticleContent(String articleContent) {
-        this.articleContent = articleContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public Long getWriterId() {
+        return writerId;
     }
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
+    public void setWriterId(Long writerId) {
+        this.writerId = writerId;
     }
     public Long getBoardId() {
         return boardId;
@@ -59,17 +71,17 @@ public class Article {
     public void setBoardId(Long boardId) {
         this.boardId = boardId;
     }
-    public LocalDateTime getWriteDate() {
-        return writeDate;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
-    public void setWriteDate(LocalDateTime writeDate) {
-        this.writeDate = writeDate;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
-    public LocalDateTime getUpdatedDate() {
-        return updatedDate;
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
     }
-    public void setUpdatedDate(LocalDateTime updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 }
 

@@ -1,26 +1,30 @@
 package com.example.demo.domain;
 
 public class Board {
-    private Long boardId;
-    private String boardName;
+    private Long id;
+    private String name;
 
-    public Board(long id, String name) {
+    public Board(String name) {
+        this.name = name;
     }
 
-
-    public Long getBoardId() {
-        return boardId;
+    public Board(Long id, String name) {
+        this.id = id; this.name = name;
     }
 
-    public void setBoardId(Long boardId) {
-        this.boardId = boardId;
+    public Board() {};
+
+    public Long getId() {
+        return id;
     }
 
-    public String getBoardName() {
-        return boardName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setBoardName(String boardName) {
-        this.boardName = boardName;
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {this.name=name;}
 }
