@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ArticleRequest;
 import com.example.demo.dto.ArticleResponse;
+import com.example.demo.dto.ArticleUpdateRequest;
 import org.springframework.stereotype.Controller;
 
 import com.example.demo.service.ArticleService;
@@ -25,33 +26,39 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long id) {
+    public ResponseEntity<ArticleResponse> getArticle(
+            @PathVariable Long id) {
         try {
-            ArticleResponse article = articleService.getArticleById(id);
+            ArticleResponse article = articleService.getById(id);
             return new ResponseEntity<>(article, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping
-    @ResponseBody
-    public ResponseEntity<List<ArticleResponse>> getAllArticles() {
-        List<ArticleResponse> response = articleService.getAllArticles();
-        if (response != null) {
-            return new ResponseEntity<>(response, HttpStatus.OK);
+    @GetMapping()
+    public ResponseEntity<List<ArticleResponse>> getArticlesByBoardId(
+            @RequestParam(name="boardId",required = false) Long boardId) {
+        if (boardId != null) {
+            List<ArticleResponse> articles = articleService.getArticlesByBoardId(boardId);
+            return new ResponseEntity<>(articles, HttpStatus.OK);
+        } else {
+            List<ArticleResponse> articles = articleService.getAll();
+            return new ResponseEntity<>(articles, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
-    public ResponseEntity<ArticleResponse> createArticle(@RequestBody ArticleRequest request) {
-        ArticleResponse response = articleService.createArticle(request);
+    public ResponseEntity<ArticleResponse> createArticle(
+            @RequestBody ArticleRequest request) {
+        ArticleResponse response = articleService.create(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable Long id, @RequestBody ArticleRequest request) {
+    public ResponseEntity<ArticleResponse> updateArticle(
+            @PathVariable Long id,
+            @RequestBody ArticleUpdateRequest request) {
         try{
             ArticleResponse response = articleService.updateArticle(id, request);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -70,9 +77,5 @@ public class ArticleController {
         }
     }
 
-    @GetMapping("/articles")
-    public ResponseEntity<List<ArticleResponse>> getArticlesByBoardId(@RequestParam(name="boardId") Long boardId) {
-        List<ArticleResponse> articles = articleService.getArticlesByBoardId(boardId);
-        return new ResponseEntity<>(articles, HttpStatus.OK);
-    }
+
 }
