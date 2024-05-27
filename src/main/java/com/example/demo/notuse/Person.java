@@ -1,11 +1,9 @@
-package etc;
+package com.example.demo.notuse;
 
 public class Person {
     private String name;
     private int age;
 
-
-    // 게터, 세터
     public String getName() {
         return name;
     }

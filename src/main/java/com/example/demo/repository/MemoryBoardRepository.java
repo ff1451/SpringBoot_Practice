@@ -13,8 +13,8 @@ public class MemoryBoardRepository implements BoardRepository {
 
     @Override
     public Board createBoard(Board board) {
-        board.setBoardId(++currentBoardId);
-        boardStore.put(board.getBoardId(), board);
+        board.setId(++currentBoardId);
+        boardStore.put(board.getId(), board);
         return board;
     }
 
@@ -30,7 +30,7 @@ public class MemoryBoardRepository implements BoardRepository {
 
     @Override
     public Board updateBoard(Board board) {
-        boardStore.put(board.getBoardId(), board);
+        boardStore.put(board.getId(), board);
         return board;
 
     }

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.notuse;
 
 import com.example.demo.domain.Board;
 import com.example.demo.service.BoardService;
@@ -43,7 +43,7 @@ public class BoardController {
     @PutMapping("/{id}")
     public ResponseEntity<Board> updateBoard(@PathVariable Long id, @RequestBody Board board) {
         try {
-            board.setBoardId(id);
+            board.setId(id);
             Board updatedBoard = boardService.updateBoard(board);
             return new ResponseEntity<>(updatedBoard, HttpStatus.OK);
         } catch (IllegalArgumentException e){

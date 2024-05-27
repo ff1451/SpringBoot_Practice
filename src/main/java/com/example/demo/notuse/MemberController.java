@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.notuse;
 
 
 import com.example.demo.domain.Member;
@@ -44,7 +44,7 @@ public class MemberController {
     @PutMapping("/{id}")
     public ResponseEntity<Member> updateMember(@PathVariable Long id, @RequestBody Member member) {
         try{
-            member.setMemberId(id);
+            member.setId(id);
             Member updatedMember = memberService.updateMember(member);
             return new ResponseEntity<>(updatedMember, HttpStatus.OK);
         }catch (IllegalArgumentException e) {

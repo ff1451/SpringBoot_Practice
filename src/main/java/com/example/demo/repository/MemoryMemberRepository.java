@@ -13,12 +13,12 @@ import java.util.Map;
 public class MemoryMemberRepository implements MemberRepository {
 
     private static final Map<Long, Member> memberStore = new HashMap<>();
-    private static long currentMemberId = 0L;
+    private static long currentid = 0L;
 
     @Override
     public Member createMember(Member member) {
-        member.setMemberId(++currentMemberId);
-        memberStore.put(member.getMemberId(), member);
+        member.setId(++currentid);
+        memberStore.put(member.getId(), member);
         return member;
     }
 
@@ -39,7 +39,7 @@ public class MemoryMemberRepository implements MemberRepository {
 
     @Override
     public Member updateMember(Member member) {
-        memberStore.put(member.getMemberId(), member);
+        memberStore.put(member.getId(), member);
         return member;
     }
 }
