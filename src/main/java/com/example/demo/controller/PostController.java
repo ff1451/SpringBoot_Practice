@@ -30,6 +30,6 @@ public String getArticlesByBoardId(@RequestParam("boardId") Long boardId, Model 
     List<ArticleResponse> articles = articleService.getArticlesByBoardId(boardId);
     model.addAttribute("articles", articles);
     model.addAttribute("boardName", "자유게시판"); // Board name should be dynamically retrieved
-    return "articles";
+    return "board";
 }
 }
