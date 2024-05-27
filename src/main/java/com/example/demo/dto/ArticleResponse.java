@@ -7,21 +7,23 @@ import com.example.demo.domain.Member;
 import java.time.LocalDateTime;
 
 public record ArticleResponse(
-        Long articleId,
-        String articleTitle,
-        String articleContent,
-        String authorName,
-        String boardName,
-        LocalDateTime date
+        Long id,
+        Long author_id,
+        Long board_id,
+        String title,
+        String content,
+        LocalDateTime created_date,
+        LocalDateTime modified_date
 ) {
     public static ArticleResponse of(Article article,Member member,Board board) {
         return new ArticleResponse(
-                article.getArticleId(),
-                article.getArticleTitle(),
-                article.getArticleContent(),
-                member.getName(),
-                board.getBoardName(),
-                article.getWriteDate()
+                article.getId(),
+                article.getWriterId(),
+                article.getBoardId(),
+                article.getTitle(),
+                article.getContent(),
+                article.getCreatedDate(),
+                article.getModifiedDate()
         );
     }
 }
