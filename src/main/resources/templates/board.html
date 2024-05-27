@@ -10,7 +10,7 @@
     <div class="post" th:each="article : ${articles}">
         <h2 class="post-title" th:text="${article.title}">제목</h2>
         <div class="post-metadata">
-            <span th:text="${article.author}">작성자</span>
+            <span th:text="${article.author_id()}">작성자 ID</span>
             <span th:text="${article.created_date}">날짜</span>
         </div>
         <div class="post-content" th:text="${article.content}">내용</div>

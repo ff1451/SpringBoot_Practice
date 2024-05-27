@@ -102,5 +102,10 @@ public class ArticleService {
                     return ArticleResponse.of(article, member, board);
                 }).toList();
     }
+
+    public Board getBoardById(Long boardId) {
+        return boardDAO.getById(boardId)
+                .orElseThrow(() -> new BoardNotFoundException("게시판 조회 실패"));
+    }
 }
 

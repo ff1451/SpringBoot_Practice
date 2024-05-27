@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import com.example.demo.domain.Board;
 import org.springframework.ui.Model;
 import com.example.demo.dto.ArticleResponse;
 import com.example.demo.service.ArticleService;
@@ -28,8 +29,9 @@ public class PostController {
 @GetMapping("/posts")
 public String getArticlesByBoardId(@RequestParam("boardId") Long boardId, Model model) {
     List<ArticleResponse> articles = articleService.getArticlesByBoardId(boardId);
+    Board board = articleService.getBoardById(boardId);
     model.addAttribute("articles", articles);
-    model.addAttribute("boardName", "자유게시판"); // Board name should be dynamically retrieved
+    model.addAttribute("boardName", board.getName());
     return "board";
-}
+    }
 }
