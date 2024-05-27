@@ -84,4 +84,3 @@ public class Article {
         this.modifiedDate = modifiedDate;
     }
 }
-
