@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Board updateBoard(Board board) {
-        if (board.getBoardId() == null) {
+        if (board.getId() == null) {
             throw new IllegalArgumentException("게시판 id 조회 실패");
         }
         return boardRepository.updateBoard(board);

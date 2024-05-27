@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member updateMember(Member member) {
-        if(member.getMemberId()==null) {
+        if(member.getId()==null) {
             throw new IllegalArgumentException("회원 id 조회 실패");
         }
         return memberRepository.updateMember(member);
