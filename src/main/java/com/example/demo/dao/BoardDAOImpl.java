@@ -5,11 +5,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
+
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -18,9 +16,6 @@ public class BoardDAOImpl implements BoardDAO {
     public BoardDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    private static final Map<Long, Board> boards = new HashMap<>();
-    private static final AtomicLong autoincrement = new AtomicLong(1);
 
     private final RowMapper<Board> boardRowMapper = (resultSet, rowNum) -> new Board(
             resultSet.getLong("id"),

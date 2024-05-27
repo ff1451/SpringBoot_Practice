@@ -3,18 +3,17 @@ package com.example.demo.dao;
 import com.example.demo.domain.Article;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Repository
 public class ArticleDAOImpl implements ArticleDAO{
-
-    private static final Map<Long, Article> articles = new HashMap<>();
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -32,10 +31,22 @@ public class ArticleDAOImpl implements ArticleDAO{
     );
 
 
+
+
     @Override
     public Article create(Article article) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         String sql = "INSERT INTO article (title, content, author_id, board_id) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, article.getTitle(),article.getContent(),article.getWriterId(),article.getBoardId());
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
+            ps.setString(1, article.getTitle());
+            ps.setString(2, article.getContent());
+            ps.setLong(3, article.getWriterId());
+            ps.setLong(4, article.getBoardId());
+            return ps;
+            }, keyHolder);
+        article.setId(keyHolder.getKey().longValue());
+
         return article;
     }
 
