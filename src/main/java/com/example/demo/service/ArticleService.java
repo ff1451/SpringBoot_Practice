@@ -9,6 +9,9 @@ import com.example.demo.domain.Member;
 import com.example.demo.dto.ArticleRequest;
 import com.example.demo.dto.ArticleResponse;
 import com.example.demo.dto.ArticleUpdateRequest;
+import com.example.demo.exception.ArticleNotFoundException;
+import com.example.demo.exception.BoardNotFoundException;
+import com.example.demo.exception.MemberNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,19 +42,19 @@ public class ArticleService {
 
         Article created = articleDAO.create(article);
         Member member = memberDAO.getById(created.getWriterId())
-                .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
+                .orElseThrow(() -> new MemberNotFoundException("회원 조회 실패"));
         Board board = boardDAO.getById(created.getBoardId())
-                .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
+                .orElseThrow(() -> new BoardNotFoundException("게시판 조회 실패"));
         return ArticleResponse.of(created, member, board);
     }
 
     public ArticleResponse getById(Long id) {
         Article article = articleDAO.getById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시물 id 조회 실패: " + id));
+                .orElseThrow(() -> new ArticleNotFoundException("게시글 조회 실패"));
         Member member = memberDAO.getById(article.getWriterId())
-                .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
+                .orElseThrow(() -> new MemberNotFoundException("회원 조회 실패"));
         Board board = boardDAO.getById(article.getBoardId())
-                .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
+                .orElseThrow(() -> new BoardNotFoundException("게시판 조회 실패"));
         return ArticleResponse.of(article, member, board);
     }
 
@@ -60,9 +63,9 @@ public class ArticleService {
         return articles.stream()
                 .map(article -> {
                     Member member = memberDAO.getById(article.getWriterId())
-                            .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
+                            .orElseThrow(() -> new MemberNotFoundException("회원 조회 실패"));
                     Board board = boardDAO.getById(article.getBoardId())
-                            .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
+                            .orElseThrow(() -> new BoardNotFoundException("게시판 조회 실패"));
                     return ArticleResponse.of(article, member, board);
                 }).toList();
     }
@@ -71,14 +74,14 @@ public class ArticleService {
     @Transactional
     public ArticleResponse updateArticle(Long id, ArticleUpdateRequest request) {
         Article article = articleDAO.getById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시글 조회 실패"));
+                .orElseThrow(() -> new ArticleNotFoundException("게시글 조회 실패"));
         article.setModifiedDate(LocalDateTime.now());
         article.update(request.board_id(), request.title(), request.content());
         Article updated = articleDAO.update(id, article);
         Member member = memberDAO.getById(updated.getWriterId())
-                .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
+                .orElseThrow(() -> new MemberNotFoundException("회원 조회 실패"));
         Board board = boardDAO.getById(updated.getBoardId())
-                .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
+                .orElseThrow(() -> new BoardNotFoundException("게시판 조회 실패"));
         return ArticleResponse.of(updated, member, board);
     }
 
@@ -93,9 +96,9 @@ public class ArticleService {
         return articles.stream()
                 .map(article -> {
                     Member member = memberDAO.getById(article.getWriterId())
-                            .orElseThrow(() -> new IllegalArgumentException("회원 조회 실패"));
+                            .orElseThrow(() -> new MemberNotFoundException("회원 조회 실패"));
                     Board board = boardDAO.getById(article.getBoardId())
-                            .orElseThrow(() -> new IllegalArgumentException("게시판 조회 실패"));
+                            .orElseThrow(() -> new BoardNotFoundException("게시판 조회 실패"));
                     return ArticleResponse.of(article, member, board);
                 }).toList();
     }

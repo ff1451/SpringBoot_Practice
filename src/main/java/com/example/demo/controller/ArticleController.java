@@ -26,31 +26,25 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponse> getArticle(
-            @PathVariable Long id) {
-        try {
+    public ResponseEntity<ArticleResponse> getArticle(@PathVariable Long id) {
             ArticleResponse article = articleService.getById(id);
             return new ResponseEntity<>(article, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @GetMapping()
     public ResponseEntity<List<ArticleResponse>> getArticlesByBoardId(
             @RequestParam(name="boardId",required = false) Long boardId) {
+        List<ArticleResponse> articles;
         if (boardId != null) {
-            List<ArticleResponse> articles = articleService.getArticlesByBoardId(boardId);
-            return new ResponseEntity<>(articles, HttpStatus.OK);
+            articles = articleService.getArticlesByBoardId(boardId);
         } else {
-            List<ArticleResponse> articles = articleService.getAll();
-            return new ResponseEntity<>(articles, HttpStatus.OK);
+            articles = articleService.getAll();
         }
+        return new ResponseEntity<>(articles,HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<ArticleResponse> createArticle(
-            @RequestBody ArticleRequest request) {
+    public ResponseEntity<ArticleResponse> createArticle(@RequestBody ArticleRequest request) {
         ArticleResponse response = articleService.create(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -59,22 +53,14 @@ public class ArticleController {
     public ResponseEntity<ArticleResponse> updateArticle(
             @PathVariable Long id,
             @RequestBody ArticleUpdateRequest request) {
-        try{
-            ArticleResponse response = articleService.updateArticle(id, request);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        ArticleResponse response = articleService.updateArticle(id, request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
-        try {
-            articleService.deleteArticle(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        articleService.deleteArticle(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
