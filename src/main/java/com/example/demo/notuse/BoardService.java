@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.notuse;
 
 import com.example.demo.domain.Board;
 import com.example.demo.repository.BoardRepository;
